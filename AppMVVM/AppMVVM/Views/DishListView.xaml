@@ -21,7 +21,10 @@
             <!-- Listado -->
             <CollectionView
                 x:Name="DishesList"
-                ItemsSource="{Binding ListDishes}">
+                ItemsSource="{Binding ListDishes}"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedDish}"
+                SelectionChangedCommand="{Binding SelectedCommand}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid>

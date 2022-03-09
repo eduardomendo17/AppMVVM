@@ -21,22 +21,22 @@
             <!-- Captura de datos -->
             <Entry
                 Placeholder="Ingresa la categoría"
-                Text="{Binding Category}" />
+                Text="{Binding DishCategory}" />
             <Entry
-                Placeholder="Ingresa la categoría"
-                Text="{Binding Name}" />
+                Placeholder="Ingresa el nombre"
+                Text="{Binding DishName}" />
             <Entry
-                Placeholder="Ingresa la categoría"
+                Placeholder="Ingresa el precio"
                 Keyboard="Numeric"
-                Text="{Binding Price}" />
+                Text="{Binding DishPrice}" />
             <Stepper
                 Increment="1"
                 Minimum="0"
                 Maximum="999"
-                Value="{Binding Price}" />
+                Value="{Binding DishPrice}" />
             <Entry
-                Placeholder="Ingresa la categoría"
-                Text="{Binding Picture}" />
+                Placeholder="Ingresa la URL de la imagen"
+                Text="{Binding DishPicture}" />
 
         </StackLayout>
     </ContentPage.Content>

@@ -1,4 +1,5 @@
 ﻿using AppMVVM.Models;
+using AppMVVM.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,9 +9,18 @@ namespace AppMVVM.ViewModels
 {
     public class DishViewModel : BaseViewModel
     {
+        // Variables locales
+        public List<DishModel> MemoryDishes;
+
         // Deeclaración de comandos Binding
         private Command _LoadCommand;
-        public Command LoadCommand => _LoadCommand ?? new Command(LoadAction);
+        public Command LoadCommand => _LoadCommand ?? (_LoadCommand = new Command(LoadAction));
+
+        private Command _NewCommand;
+        public Command NewCommand => _NewCommand ?? (_NewCommand = new Command(NewAction));
+
+        private Command _SelectedCommand;
+        public Command SelectedCommand => _SelectedCommand ?? (_SelectedCommand = new Command(SelectedAction));
 
         /*public Command LoadCommand
         {
@@ -29,15 +39,18 @@ namespace AppMVVM.ViewModels
             set => SetProperty(ref _ListDishes, value);
         }
 
-        // Constructor
-        public DishViewModel()
-        { 
+        private DishModel _SelectedDish;
+        public DishModel SelectedDish
+        {
+            get => _SelectedDish;
+            set => SetProperty(ref _SelectedDish, value);
         }
 
-        // Métodos y procedimientos
-        private void LoadAction(object obj)
+        // Constructor
+        public DishViewModel()
         {
-            ListDishes = new List<DishModel>
+            // Llenamos nuestra variable local con los platillos iniciales
+            MemoryDishes = new List<DishModel>
             {
                 new DishModel()
                 {
@@ -64,6 +77,29 @@ namespace AppMVVM.ViewModels
                     Picture = "https://thumbs.dreamstime.com/b/pastel-de-queso-de-la-fresa-22627364.jpg"
                 }
             };
+        }
+
+        // Métodos y procedimientos
+        private void LoadAction()
+        {
+            // Los platillos que tenemos en memoria los desplegamos en nuestro collectioview
+            ListDishes = null;
+            ListDishes = MemoryDishes;
+        }
+
+        private void NewAction()
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new DishDetailView(this));
+        }
+
+        private void SelectedAction()
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new DishDetailView(this, SelectedDish));
+        }
+
+        public void ListRefresh()
+        {
+            LoadAction();
         }
     }
 }
